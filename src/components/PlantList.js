@@ -1,9 +1,23 @@
 import React from "react";
 import PlantCard from "./PlantCard";
 
-function PlantList() {
+function PlantList({ plants, onSoldOut }) {
+  
+  const plantsWithIds = plants.map((plant, index) => ({
+    ...plant,
+    id: plant.id || `temp-id-${index}-${Date.now()}`
+  }));
+
   return (
-    <ul className="cards">{/* render PlantCards components in here */}</ul>
+    <div className="plant-list">
+      {plantsWithIds.map((plant) => (
+        <PlantCard
+          key={plant.id}
+          plant={plant}
+          onSoldOut={onSoldOut}
+        />
+      ))}
+    </div>
   );
 }
 
